@@ -6,12 +6,6 @@ app = Flask(__name__)
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 model = GPT2LMHeadModel.from_pretrained("gpt2")
 
-# Flaskアプリの定義が上にあるとして…
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # ← Renderが使うポートを取得
-    app.run(host="0.0.0.0", port=port)        # ← 必ず 0.0.0.0 でバインド
-
 @app.route("/generate", methods=["GET"])
 def generate_quiz():
     return 'Generated content'
@@ -20,4 +14,10 @@ def generate_quiz():
     # outputs = model.generate(inputs, max_length=200, do_sample=True, temperature=0.8)
     # result = tokenizer.decode(outputs[0], skip_special_tokens=True)
     # return jsonify({"quiz": result})
+
+    # Flaskアプリの定義が上にあるとして…
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # ← Renderが使うポートを取得
+    app.run(host="0.0.0.0", port=port)        # ← 必ず 0.0.0.0 でバインド
 
